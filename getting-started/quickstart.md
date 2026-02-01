@@ -65,4 +65,4 @@ Copy that `/run/...` URL into your payload vector (SSRF, preview bot, parser, et
 If you're debugging timeouts, try <code>/delayresponse?t=20</code> to learn client's patience threshold.
 </div>
 
-Next: read the <a href="{{ '/mental-model/' | relative_url }}">Mental model</a> so you can interpret callbacks like an execution trace.
+Next: read the <a href="{{ '/concepts/mental-model/' | relative_url }}">Mental model</a> so you can interpret callbacks like an execution trace.

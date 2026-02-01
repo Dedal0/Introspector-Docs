@@ -3,25 +3,25 @@ layout: page
 show_title: false
 hero:
   buttons:
-    - url: /quickstart/
+    - url: /getting-started/quickstart/
       text: Quickstart
       icon: 🚀
       description: Run a session, open the log UI, and generate payloads in minutes
-    - url: /mental-model/
+    - url: /concepts/mental-model/
       text: Mental Model
       icon: 🧠
       description: Understand how to interpret callbacks like execution traces
-    - url: /commands/
+    - url: /reference/commands/
       text: Commands
       icon: 📚
       description: Complete command reference for framework control
-    - url: /ui/
+    - url: /screenshots/ui/
       text: Screenshots
       icon: 🖼️
       description: See the UI and workflow in action
 ---
 
-## What Is Introspector
+## What It Is
 
 Introspector is a modular offensive framework for observing and **weaponizing HTTP-based behavior** — including what happens *outside* the immediate response.
 
