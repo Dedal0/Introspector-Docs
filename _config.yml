@@ -1,0 +1,105 @@
+# Minimal Jekyll Configuration for Introspector Documentation
+# Optimized for GitHub Pages
+
+title: Introspector
+description: "Offensive framework for deep HTTP/DNS exploitation: listeners, payload hosting, redirect intel, and execution-trace visibility."
+author: deepsecurity-pe
+
+# GitHub Pages settings
+url: https://dedal0.github.io
+baseurl: /Introspector-Docs
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .github/
+  - LICENSE
+  - README.md
+
+# Collections for better organization
+collections:
+  concepts:
+    output: true
+    permalink: /:name/
+  getting-started:
+    output: true
+    permalink: /:name/
+  usage:
+    output: true
+    permalink: /:name/
+  reference:
+    output: true
+    permalink: /:name/
+  examples:
+    output: true
+    permalink: /:name/
+  screenshots:
+    output: true
+    permalink: /:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "concepts"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "getting-started"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "usage"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "reference"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "examples"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "screenshots"
+    values:
+      layout: "page"
+
+# SEO
+twitter:
+  username: deepsecurity_pe
+  card: summary
+
+social:
+  name: Deep Security
+  links:
+    - https://github.com/deepsecurity-pe
