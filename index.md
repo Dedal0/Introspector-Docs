@@ -21,7 +21,7 @@ hero:
       description: See the UI and workflow in action
 ---
 
-## What It Is
+## What Is Introspector
 
 Introspector is a modular offensive framework for observing and **weaponizing HTTP-based behavior** — including what happens *outside* the immediate response.
 
