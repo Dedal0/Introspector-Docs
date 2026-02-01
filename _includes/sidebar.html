@@ -1,152 +1,53 @@
 <div class="sidebar-section">
-  <div class="panel">
-    <div class="panel-header">Getting Started</div>
-    <div class="panel-body">
-      <div class="type-filter">
-        <span class="tag">Quick Start</span>
-      </div>
-      <div class="log-list">
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/quickstart/' | relative_url }}" {% if page.url contains '/quickstart/' %}class="active"{% endif %}>
-                  🚀 Quickstart Guide
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">5 min read</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/installation/' | relative_url }}" {% if page.url contains '/installation/' %}class="active"{% endif %}>
-                  📦 Installation
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">3 min read</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3 class="sidebar-title" data-icon="!">Getting Started</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/quickstart/' | relative_url }}" {% if page.url contains '/quickstart/' %}class="active"{% endif %}>Quickstart</a></li>
+    <li><a href="{{ '/installation/' | relative_url }}" {% if page.url contains '/installation/' %}class="active"{% endif %}>Installation</a></li>
+  </ul>
 </div>
 
 <div class="sidebar-section">
-  <div class="panel">
-    <div class="panel-header">Concepts</div>
-    <div class="panel-body">
-      <div class="type-filter">
-        <span class="tag">Mental Models</span>
-      </div>
-      <div class="log-list">
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/mental-model/' | relative_url }}" {% if page.url contains '/mental-model/' %}class="active"{% endif %}>
-                  🧠 Mental Model
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">8 min read</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/execution-tracing/' | relative_url }}" {% if page.url contains '/execution-tracing/' %}class="active"{% endif %}>
-                  🔍 Execution Tracing
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">6 min read</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3 class="sidebar-title" data-icon="#">Concepts</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/mental-model/' | relative_url }}" {% if page.url contains '/mental-model/' %}class="active"{% endif %}>Mental Model</a></li>
+    <li><a href="{{ '/execution-tracing/' | relative_url }}" {% if page.url contains '/execution-tracing/' %}class="active"{% endif %}>Execution Tracing</a></li>
+    <li><a href="{{ '/oob-architecture/' | relative_url }}" {% if page.url contains '/oob-architecture/' %}class="active"{% endif %}>OOB Architecture</a></li>
+  </ul>
 </div>
 
 <div class="sidebar-section">
-  <div class="panel">
-    <div class="panel-header">Usage</div>
-    <div class="panel-body">
-      <div class="type-filter">
-        <span class="tag">Features</span>
-      </div>
-      <div class="log-list">
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/payloads/' | relative_url }}" {% if page.url contains '/payloads/' %}class="active"{% endif %}>
-                  🎯 Payloads
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">10 min read</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/redirects/' | relative_url }}" {% if page.url contains '/redirects/' %}class="active"{% endif %}>
-                  🔄 Redirects
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">8 min read</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3 class="sidebar-title" data-icon=">">Usage</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/payloads/' | relative_url }}" {% if page.url contains '/payloads/' %}class="active"{% endif %}>Payloads</a></li>
+    <li><a href="{{ '/redirects/' | relative_url }}" {% if page.url contains '/redirects/' %}class="active"{% endif %}>Redirects</a></li>
+    <li><a href="{{ '/dns-callbacks/' | relative_url }}" {% if page.url contains '/dns-callbacks/' %}class="active"{% endif %}>DNS Callbacks</a></li>
+    <li><a href="{{ '/hosted-files/' | relative_url }}" {% if page.url contains '/hosted-files/' %}class="active"{% endif %}>Hosted Files</a></li>
+    <li><a href="{{ '/listeners/' | relative_url }}" {% if page.url contains '/listeners/' %}class="active"{% endif %}>Listeners</a></li>
+    <li><a href="{{ '/scan-modules/' | relative_url }}" {% if page.url contains '/scan-modules/' %}class="active"{% endif %}>Scan Modules</a></li>
+  </ul>
 </div>
 
 <div class="sidebar-section">
-  <div class="panel">
-    <div class="panel-header">Reference</div>
-    <div class="panel-body">
-      <div class="type-filter">
-        <span class="tag">Commands</span>
-      </div>
-      <div class="log-list">
-        <div class="log-item">
-          <div class="log-row-top">
-            <div class="log-top-row">
-              <div class="log-path">
-                <a href="{{ '/commands/' | relative_url }}" {% if page.url contains '/commands/' %}class="active"{% endif %}>
-                  📚 Command Reference
-                </a>
-              </div>
-            </div>
-            <div class="log-meta">
-              <span class="log-time">15 min read</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3 class="sidebar-title" data-icon="@">Reference</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/commands/' | relative_url }}" {% if page.url contains '/commands/' %}class="active"{% endif %}>Commands</a></li>
+    <li><a href="{{ '/configuration/' | relative_url }}" {% if page.url contains '/configuration/' %}class="active"{% endif %}>Configuration</a></li>
+    <li><a href="{{ '/payloads/' | relative_url }}" {% if page.url contains '/payloads/' %}class="active"{% endif %}>Payload Types</a></li>
+  </ul>
+</div>
+
+<div class="sidebar-section">
+  <h3 class="sidebar-title" data-icon="$">Examples</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/redirect-following/' | relative_url }}" {% if page.url contains '/redirect-following/' %}class="active"{% endif %}>Redirect Following</a></li>
+    <li><a href="{{ '/blind-ssrf/' | relative_url }}" {% if page.url contains '/blind-ssrf/' %}class="active"{% endif %}>Blind SSRF</a></li>
+    <li><a href="{{ '/timeout-analysis/' | relative_url }}" {% if page.url contains '/timeout-analysis/' %}class="active"{% endif %}>Timeout Analysis</a></li>
+  </ul>
+</div>
+
+<div class="sidebar-section">
+  <h3 class="sidebar-title" data-icon="~">Screenshots</h3>
+  <ul class="sidebar-list">
+    <li><a href="{{ '/ui/' | relative_url }}" {% if page.url contains '/ui/' %}class="active"{% endif %}>UI Demo</a></li>
+  </ul>
 </div>

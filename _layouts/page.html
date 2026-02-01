@@ -2,34 +2,4 @@
 layout: default
 ---
 
-<div class="panel">
-  <div class="panel-header">
-    <span>Content</span>
-    <div class="badge-count">{{ content | size }}</div>
-  </div>
-  <div class="panel-body">
-    {% if page.hero %}
-    <div class="hero">
-      {% if page.hero.buttons %}
-      <div class="button-grid">
-        {% for btn in page.hero.buttons %}
-        <a href="{{ btn.url }}" class="hacker-btn">
-          <div class="btn-icon">{{ btn.icon }}</div>
-          <div class="btn-content">
-            <h3>{{ btn.text }}</h3>
-            <p>{{ btn.description }}</p>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-    {% endif %}
-
-    {% if page.title and page.show_title != false %}
-    <h1>{{ page.title }}</h1>
-    {% endif %}
-
-    {{ content }}
-  </div>
-</div>
+{{ content }}
