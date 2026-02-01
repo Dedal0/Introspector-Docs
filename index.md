@@ -7,10 +7,6 @@ hero:
       text: Quickstart
       icon: 🚀
       description: Run a session, open the log UI, and generate payloads in minutes
-    - url: /concepts/mental-model/
-      text: Mental Model
-      icon: 🧠
-      description: Understand how to interpret callbacks like execution traces
     - url: /reference/commands/
       text: Commands
       icon: 📚
