@@ -10,43 +10,99 @@
   {% seo %}
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-content">
-      <a href="{{ '/' | relative_url }}" class="site-title">
-        {{ site.title }}
-      </a>
-      <nav>
-        <ul class="main-nav">
-          <li class="nav-item"><a href="{{ '/quickstart/' | relative_url }}">Quickstart</a></li>
-          <li class="nav-item"><a href="{{ '/mental-model/' | relative_url }}">Concepts</a></li>
-          <li class="nav-item"><a href="{{ '/payloads/' | relative_url }}">Usage</a></li>
-          <li class="nav-item"><a href="{{ '/commands/' | relative_url }}">Reference</a></li>
-          <li class="nav-item"><a href="{{ '/redirect-following/' | relative_url }}">Examples</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <div class="main-container">
-    <aside class="sidebar">
-      {% include sidebar.html %}
-    </aside>
-
-    <main class="main-content">
-      {{ content }}
-    </main>
-  </div>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>&copy; {{ site.time | date: "%Y" }} {{ site.author }} - Introspector Framework</p>
-      <div class="footer-links">
-        <a href="https://github.com/deepsecurity-pe/Introspector">GitHub</a>
-        <a href="https://github.com/deepsecurity-pe/Introspector-Docs">Docs Repo</a>
+  <div class="app">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-main">{{ site.title }}</div>
+        <div class="topbar-title">Documentation</div>
+      </div>
+      <div class="topbar-right">
+        <div class="host-box">
+          <span class="host-text">{{ site.url }}</span>
+        </div>
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('{{ site.url }}')">Copy</button>
+        <div class="view-toggle">
+          <button class="icon-btn active">🔍</button>
+        </div>
       </div>
     </div>
-  </footer>
+
+    <div class="layout">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-left">
+            <div class="tag">Navigation</div>
+          </div>
+          <div class="sidebar-right">
+            <button class="btn-small" onclick="toggleSidebar()">Collapse</button>
+          </div>
+        </div>
+        
+        {% include sidebar.html %}
+      </div>
+
+      <div class="main">
+        <div class="main-header">
+          <div class="main-title">{% if page.title %}{{ page.title }}{% else %}Home{% endif %}</div>
+          <div class="main-sub">Execution-trace visibility for HTTP & DNS exploitation</div>
+          <div class="pill-right">
+            <div class="circle-small"></div>
+            <div class="badge-count">{{ site.posts | size }}</div>
+            <div class="tag">v1.0</div>
+          </div>
+        </div>
+
+        <div class="content">
+          {% if page.hero %}
+          <div class="hero">
+            {% if page.hero.buttons %}
+            <div class="button-grid">
+              {% for btn in page.hero.buttons %}
+              <a href="{{ btn.url }}" class="hacker-btn">
+                <div class="btn-icon">{{ btn.icon }}</div>
+                <div class="btn-content">
+                  <h3>{{ btn.text }}</h3>
+                  <p>{{ btn.description }}</p>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          {% if page.title and page.show_title != false %}
+          <h1>{{ page.title }}</h1>
+          {% endif %}
+
+          {{ content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Welcome to Introspector Documentation</div>
 
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('collapsed');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Welcome message
+    setTimeout(() => {
+      showToast('Ready to hack... 🎯');
+    }, 1000);
+  </script>
 </body>
 </html>
