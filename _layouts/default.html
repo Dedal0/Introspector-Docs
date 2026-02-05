@@ -13,8 +13,16 @@
   <header class="site-header">
     <div class="header-content">
       <a href="{{ '/' | relative_url }}" class="site-title">
-        {{ site.title }}
+        <span class="title-prompt">></span>
+        <span class="title-text">{{ site.title }}</span>
       </a>
+      
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search docs..." id="search-input">
+        <kbd class="search-shortcut">Ctrl K</kbd>
+      </div>
+      
       <nav>
         <ul class="main-nav">
           <li class="nav-item"><a href="{{ '/getting-started/quickstart/' | relative_url }}">Quickstart</a></li>
@@ -33,6 +41,37 @@
     </aside>
 
     <main class="main-content">
+      <!-- Breadcrumbs -->
+      {% if page.url != "/" and page.url != "/index.html" %}
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="{{ '/' | relative_url }}">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+            </svg>
+          </a></li>
+          {% assign path_parts = page.url | split: '/' %}
+          {% assign current_path = '' %}
+          {% for part in path_parts %}
+            {% if part != '' and part != 'index.html' %}
+              {% assign current_path = current_path | append: '/' | append: part %}
+              {% assign is_last = forloop.last %}
+              <li>
+                <span class="breadcrumb-separator">›</span>
+                {% if is_last %}
+                  <span class="breadcrumb-current">{{ part | replace: '-', ' ' | replace: '.html', '' | capitalize }}</span>
+                {% else %}
+                  <a href="{{ current_path | relative_url }}">{{ part | replace: '-', ' ' | capitalize }}</a>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+
+      <!-- Hero Section for Home -->
+      {% if page.hero %}
       <div class="button-grid">
         {% for btn in page.hero.buttons %}
           <a href="{{ btn.url }}" class="hacker-btn">
@@ -44,12 +83,53 @@
           </a>
         {% endfor %}
       </div>
-
-      {% if page.title and page.show_title != false %}
-      <h1>{{ page.title }}</h1>
       {% endif %}
 
-      {{ content }}
+      <!-- Page Title -->
+      {% if page.title and page.show_title != false %}
+      <div class="page-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="page-description">{{ page.description }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Main Content -->
+      <div class="content-wrapper">
+        {{ content }}
+      </div>
+
+      <!-- Page Navigation -->
+      {% if page.show_nav != false %}
+      <nav class="page-nav">
+        {% assign pages = site.pages | sort: 'nav_order' %}
+        {% assign current_index = -1 %}
+        {% for p in pages %}
+          {% if p.url == page.url %}
+            {% assign current_index = forloop.index0 %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if current_index > 0 %}
+          {% assign prev_page = pages[current_index | minus: 1] %}
+          <a href="{{ prev_page.url | relative_url }}" class="nav-prev">
+            <span class="nav-label">Previous</span>
+            <span class="nav-title">{{ prev_page.title }}</span>
+          </a>
+        {% endif %}
+        
+        {% assign next_index = current_index | plus: 1 %}
+        {% if next_index < pages.size %}
+          {% assign next_page = pages[next_index] %}
+          <a href="{{ next_page.url | relative_url }}" class="nav-next">
+            <span class="nav-label">Next</span>
+            <span class="nav-title">{{ next_page.title }}</span>
+          </a>
+        {% endif %}
+      </nav>
+      {% endif %}
     </main>
   </div>
 
@@ -64,5 +144,7 @@
   </footer>
 
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/keyboard-shortcuts.js' | relative_url }}"></script>
 </body>
 </html>
