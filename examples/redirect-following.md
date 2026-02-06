@@ -53,32 +53,30 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
 
 ## Diagram (passive and “browser-like”)
 
-<div align="center">
-
 ```text
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                      Redirect Following (Passive Check)                      │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-                         ┌───────────────────────────────┐
-                         │   SSRF Client / Bot / Worker  │
-                         │  (headless, preview, parser)  │
-                         └───────────────┬───────────────┘
-                                         │
-                                         │ 1) GET /favicon.ico
-                                         ▼
-            ┌─────────────────────────────────────────────────────────┐
-            │             Introspector (HTTP Listener)                │
-            │     responds with: 302 Location → /favicon-followed     │
-            └────────────────────────────┬────────────────────────────┘
-                                         │
-                               ┌─────────┴─────────┐
-                               │ follows redirect? │
-                               └─────────┬─────────┘
-                                         │
-                        ┌────────────────┴────────────────┐
-                        │                                 │
-                        ▼                                 ▼
+                          ┌───────────────────────────────┐
+                          │   SSRF Client / Bot / Worker  │
+                          │  (headless, preview, parser)  │
+                          └───────────────┬───────────────┘
+                                          │
+                                          │ 1) GET /favicon.ico
+                                          ▼
+                ┌─────────────────────────────────────────────────┐
+                │          Introspector (HTTP Listener)           │
+                │ responds with: 302 Location → /favicon-followed │
+                └───────────────────────┬─────────────────────────┘
+                                        │
+                         ┌──────────────┴──────────────┐
+                         │       follows redirect?     │
+                         └──────────────┬──────────────┘
+                                        │
+                    ┌───────────────────┴───────────────────┐
+                    │                                       │
+                    ▼                                       ▼
      ┌──────────────────────────────────┐   ┌──────────────────────────────────┐
      │ 2) GET /favicon-followed         │   │ No second request observed       │
      │ Introspector flags:              │   │ → likely no redirect support     │
@@ -93,4 +91,3 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
             │ timestamps, headers, IP, path    │
             └──────────────────────────────────┘
 
-</div>
