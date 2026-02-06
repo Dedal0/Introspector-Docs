@@ -21,6 +21,7 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 
 ## Diagram (similar style)
 
+```
 +------------------+           HTTP / DNS           +------------------------+
 |     Target App   |  --------------------------->  |  Introspector Framework|
 |------------------|                                |------------------------|
@@ -48,3 +49,4 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 | - HTTP Requests  |                              | - Filters (DNS/HTTP)   |
 | - Full Headers   |                              | - Export for reports   |
 +------------------+                              +------------------------+
+
