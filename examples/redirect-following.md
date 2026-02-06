@@ -56,40 +56,41 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
 <div align="center">
   <pre><code>
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│                         Redirect Following (Passive Check)                   │
+│                      Redirect Following (Passive Check)                      │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-          ┌───────────────────────────────┐
-          │   SSRF Client / Bot / Worker  │
-          │ (headless, preview, parser)   │
-          └───────────────┬───────────────┘
-                   │
-                           │  1) GET /favicon.ico
-                   ▼
-        ┌──────────────────────────────────────┐
-        │        Introspector (HTTP Listener)  │
-        │  responds with: 302 Location         │
-        │              → /favicon-followed     │
-        └───────────────────┬──────────────────┘
-                    │
-          ┌─────────────────┴─────────────────┐
-          │                                   │
-                │ follows redirect?                 │ does NOT follow
-          │                                   │
-          ▼                                   ▼
-┌──────────────────────────────┐     ┌──────────────────────────────┐
-│ 2) GET /favicon-followed     │     │ No second request observed   │
-│ Introspector flags:          │     │ → likely no redirect support │
-│   ✅ FOLLOW REDIRECT         │     │ → use other SSRF techniques  │
-└───────────────┬──────────────┘     └──────────────────────────────┘
-                │
-                │ responds with: 302 Location → /index.ico
-                ▼
-┌──────────────────────────────┐
-│ 3) GET /index.ico (final)    │
-│ Evidence remains in logs:    │
-│ timestamps, headers, IP, path│
-└──────────────────────────────┘
-
+                          ┌───────────────────────────────┐
+                          │   SSRF Client / Bot / Worker  │
+                          │  (headless, preview, parser)  │
+                          └───────────────┬───────────────┘
+                                          │
+                                          │ 1) GET /favicon.ico
+                                          ▼
+                ┌──────────────────────────────────────────────┐
+                │          Introspector (HTTP Listener)         │
+                │  responds with: 302 Location                  │
+                │              → /favicon-followed              │
+                └───────────────────────┬──────────────────────┘
+                                        │
+                         ┌──────────────┴──────────────┐
+                         │       follows redirect?      │
+                         └──────────────┬──────────────┘
+                                        │
+                    ┌───────────────────┴───────────────────┐
+                    │                                       │
+                    ▼                                       ▼
+     ┌──────────────────────────────────┐   ┌──────────────────────────────────┐
+     │ 2) GET /favicon-followed          │   │ No second request observed       │
+     │ Introspector flags:               │   │ → likely no redirect support     │
+     │   ✅ FOLLOW REDIRECT              │   │ → use other SSRF techniques      │
+     └───────────────────┬──────────────┘   └──────────────────────────────────┘
+                         │
+                         │ 2.5) responds with: 302 Location → /index.ico
+                         ▼
+            ┌──────────────────────────────────┐
+            │ 3) GET /index.ico (final)         │
+            │ Evidence remains in logs:         │
+            │ timestamps, headers, IP, path     │
+            └──────────────────────────────────┘
   </code></pre>
 </div>
