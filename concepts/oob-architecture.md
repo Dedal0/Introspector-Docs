@@ -1,7 +1,5 @@
 
 
-# OOB Architecture
-
 Introspector works by receiving **out-of-band (OOB)** interactions from systems that you cannot observe directly.
 
 Instead of relying on the application response, you validate behavior by watching **real callbacks** hitting your controlled infrastructure.
