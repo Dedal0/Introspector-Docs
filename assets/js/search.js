@@ -119,43 +119,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Add copy-to-clipboard for code blocks
-  document.querySelectorAll('pre code').forEach(block => {
-    const button = document.createElement('button');
-    button.textContent = 'Copy';
-    button.style.cssText = `
-      position: absolute;
-      top: 0.5rem;
-      left: 0.5rem;
-      background: var(--accent-green);
-      color: var(--bg-primary);
-      border: none;
-      border-radius: 4px;
-      padding: 0.25rem 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    `;
-    
-    const pre = block.parentElement;
-    pre.style.position = 'relative';
-    pre.appendChild(button);
-    
-    pre.addEventListener('mouseenter', () => {
-      button.style.opacity = '1';
-    });
-    
-    pre.addEventListener('mouseleave', () => {
-      button.style.opacity = '0';
-    });
-    
-    button.addEventListener('click', () => {
-      navigator.clipboard.writeText(block.textContent);
-      button.textContent = 'Copied!';
-      setTimeout(() => {
-        button.textContent = 'Copy';
-      }, 1000);
-    });
-  });
+  
 });
