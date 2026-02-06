@@ -49,9 +49,10 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
 
 ---
 
-## Diagram (passive and “browser-like”)
+## Passive Redirect Check
 
 ```text
+
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                      Redirect Following (Passive Check)                      │
 └──────────────────────────────────────────────────────────────────────────────┘
