@@ -1,57 +1,46 @@
 ---
 layout: page
-title: OOB Architecture
+title: Execution Tracing
 ---
 
-# OOB Architecture
+# Execution Tracing
 
-Introspector works by receiving **out-of-band (OOB)** interactions from systems that you cannot observe directly.
+Execution tracing is the process of turning a *blind* test into a **timeline of evidence**.
 
-Instead of relying on the application response, you validate behavior by watching **real callbacks** hitting your controlled infrastructure.
-
----
-
-## Components (conceptual)
-
-- **DNS Listener**  
-  Captures hostname resolutions. Useful when HTTP is blocked.
-
-- **HTTP Listener**  
-  Captures full requests (method/path/headers/body when present).
-
-- **Payload Host**  
-  Hosts endpoints and files used for verification (redirect tests, hosted files).
-
-- **Log Engine + UI**  
-  Normalizes everything into **events**, grouped and searchable.
+When a target system processes your input (SSRF, blind XSS, URL previews, webhooks), Introspector captures the resulting **out-of-band events** and correlates them back to your test.
 
 ---
 
-## Data flow
+## How Introspector traces execution
+
+1. You generate a **unique identifier (ID)**  
+2. You embed the ID in a payload (URL / hostname / path)  
+3. The target system triggers network activity  
+4. Introspector records **events** (DNS/HTTP) with metadata  
+5. You review the **timeline** to confirm what happened
+
+---
+
+## What you can confirm
+
+- **If execution happened** (any event at all)
+- **Which channel** was used (DNS only vs HTTP)
+- **When** it happened (timestamps; delayed triggers)
+- **Who/what called you** (source IP, user-agent, headers)
+- **How it evolved** (redirect steps, repeated hits, retries)
+
+---
+
+## Minimal mental model
 
 <pre><code>
-+------------+     DNS/HTTP      +-------------------+
-| Target App | ----------------> | Introspector      |
-+------------+                   | - DNS Listener    |
-                                 | - HTTP Listener   |
-                                 | - Payload Host    |
-                                 | - Log Engine      |
-                                 +-------------------+
-                                           |
-                                           v
-                                 +-------------------+
-                                 | Events / Evidence |
-                                 | - timestamps      |
-                                 | - source IP       |
-                                 | - headers         |
-                                 | - correlation ID  |
-                                 +-------------------+
+[Payload w/ ID] ---> [Target backend] ---> [Introspector Events] ---> [Timeline + Evidence]
 </code></pre>
 
 ---
 
-## Why it matters
+## Practical tips
 
-- Confirms execution even with static/unchanged responses
-- Helps explain the behavior (DNS-only, HTTP fetch, redirects)
-- Produces evidence you can export for reports
+- Use one ID per endpoint/parameter to keep evidence clean
+- If you only see DNS, try a simpler URL/path and confirm consistency
+- If you see HTTP, inspect headers/user-agent to identify the fetcher
