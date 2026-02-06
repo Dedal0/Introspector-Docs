@@ -27,23 +27,46 @@ Instead of relying on the application response, you validate behavior by watchin
 ## Data flow
 
 <pre><code>
-+------------+     DNS/HTTP      +-------------------+
-| Target App | ----------------> | Introspector      |
-+------------+                   | - DNS Listener    |
-                                 | - HTTP Listener   |
-                                 | - Payload Host    |
-                                 | - Log Engine      |
-                                 +-------------------+
-                                           |
-                                           v
-                                 +-------------------+
-                                 | Events / Evidence |
-                                 | - timestamps      |
-                                 | - source IP       |
-                                 | - headers         |
-                                 | - correlation ID  |
-                                 +-------------------+
+How it works (OOB Architecture)
+
++-----------+        +------------------+        +-------------------------------------------+
+| Attacker  | -----> | Payload / URL ID | -----> |                TARGET SYSTEM               |
++-----------+        +------------------+        | (Web App / API / Parser / Preview / Bot)  |
+                                                 +-------------------+-----------------------+
+                                                                     |
+                                                                     | OOB traffic (DNS / HTTP)
+                                                                     v
+                         +--------------------------------------------------------------------------------+
+                         |                                 INTROSPECTOR                                   |
+                         |--------------------------------------------------------------------------------|
+                         |  +------------------+   +------------------+   +----------------------------+ |
+                         |  |  DNS Listener    |   |  HTTP Listener   |   |       Payload Host         | |
+                         |  |  :53 (queries)   |   |  :80/:443 (reqs) |   |  /r/&lt;id&gt;  /files  /redir   | |
+                         |  +--------+---------+   +--------+---------+   +--------------+-------------+ |
+                         |           |                      |                            |               |
+                         |           +----------+-----------+----------------------------+               |
+                         |                      v                                                        |
+                         |               +-------------------+                                            |
+                         |               |    Log Engine     |                                            |
+                         |               | - normalize events|                                            |
+                         |               | - correlate by ID |                                            |
+                         |               +---------+---------+                                            |
+                         |                         |                                                      |
+                         |                         v                                                      |
+                         |               +-------------------+                                            |
+                         |               |  Web UI / API     |                                            |
+                         |               | - filters (DNS/HTTP)|                                           |
+                         |               | - timeline         |                                           |
+                         |               | - export evidence  |                                           |
+                         |               +-------------------+                                            |
+                         +--------------------------------------------------------------------------------+
+
+Notes:
+- DNS-only = resolution happened (possible egress limits)
+- HTTP = real fetch (headers/path/timing)
+- Redirect chains = confirm follow behavior and hop limits
 </code></pre>
+
 
 ---
 
