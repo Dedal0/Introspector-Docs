@@ -37,30 +37,30 @@ Introspector makes this easier by capturing and correlating DNS/HTTP interaction
 - **Check consistency and repetition:** send the same payload multiple times. Consistent callbacks (same origin/pattern) make your evidence much stronger.
 
 ```text
-┌──────────────────────────────┐        HTTP / DNS         ┌──────────────────────────────┐
-│          Target App           │  ──────────────────────▶  │     Introspector Framework   │
-│  - Web App                    │                          │  - HTTP Listener              │
-│  - API Endpoint               │                          │  - DNS Server                 │
-│  - XML / URL Parser           │                          │  - Payload Host               │
-│  - Image / File Processor     │                          │  - Log Engine                 │
-└──────────────────────────────┘                          └───────────────┬──────────────┘
+┌──────────────────────────────┐        HTTP / DNS         ┌───────────────────────────────┐
+│          Target App          │  ──────────────────────▶ │     Introspector Framework    │
+│  - Web App                   │                           │  - HTTP Listener              │
+│  - API Endpoint              │                           │  - DNS Server                 │
+│  - XML / URL Parser          │                           │  - Payload Host               │
+│  - Image / File Processor    │                           │  - Log Engine                 │
+└──────────────────────────────┘                           └───────────────┬───────────────┘
                                                                            │
                                                                            │  captures & correlates
                                                                            ▼
                                                               ┌──────────────────────────────┐
-                                                              │           Callbacks           │
-                                                              │  - Timestamps                 │
-                                                              │  - Source IP / ASN            │
-                                                              │  - HTTP Headers               │
-                                                              │  - Request Path / Body        │
-                                                              │  - Response Behavior          │
+                                                              │           Callbacks          │
+                                                              │  - Timestamps                │
+                                                              │  - Source IP / ASN           │
+                                                              │  - HTTP Headers              │
+                                                              │  - Request Path / Body       │
+                                                              │  - Response Behavior         │
                                                               └───────────────┬──────────────┘
                                                                               │  real-time view
                                                                               ▼
 ┌──────────────────────────────┐        Real-time         ┌──────────────────────────────┐
-│          Web UI Logs          │  ◀─────────────────────  │        Evidence & Timeline   │
-│  - HTTP Requests              │                          │  - Sessions / Correlation     │
-│  - DNS Queries                │                          │  - Redirect / Fetch patterns  │
-│  - Full Headers               │                          │  - Validation of Blind SSRF   │
-│  - Request Bodies             │                          │                                │
+│          Web UI Logs         │  ◀───────────────────── │        Evidence & Timeline   │
+│  - HTTP Requests             │                          │  - Sessions / Correlation    │
+│  - DNS Queries               │                          │  - Redirect / Fetch patterns │
+│  - Full Headers              │                          │  - Validation of Blind SSRF  │
+│  - Request Bodies            │                          │                              │
 └──────────────────────────────┘                          └──────────────────────────────┘
