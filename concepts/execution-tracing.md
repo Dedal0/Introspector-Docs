@@ -3,8 +3,6 @@ layout: page
 title: Execution Tracing
 ---
 
-# Execution Tracing
-
 Execution tracing is the process of turning a *blind* test into a **timeline of evidence**.
 
 When a target system processes your input (SSRF, blind XSS, URL previews, webhooks), Introspector captures the resulting **out-of-band events** and correlates them back to your test.
@@ -34,8 +32,64 @@ When a target system processes your input (SSRF, blind XSS, URL previews, webhoo
 ## Minimal mental model
 
 <pre><code>
-[Payload w/ ID] ---> [Target backend] ---> [Introspector Events] ---> [Timeline + Evidence]
+Execution Tracing (turn blind behavior into a timeline)
+
++-----------+
+| Attacker  |
++-----+-----+
+      |
+      | 1) inject payload with unique ID
+      v
++---------------------------+
+|  Payload: https://x/&lt;id&gt;  |
+|  or: &lt;id&gt;.oob.domain.tld   |
++-------------+-------------+
+              |
+              v
++------------------------------+
+|       Target Application     |
+|------------------------------|
+| - parses input               |
+| - calls backend services     |
+| - preview bot / headless     |
+| - webhook handler            |
++---------------+--------------+
+                |
+                | 2) background action (minutes later sometimes)
+                v
++------------------------------+
+|    Internal fetcher/backend  |
+|------------------------------|
+| - resolves hostname (DNS)    |
+| - fetches URL (HTTP)         |
+| - follows redirects          |
+| - retries / caches           |
++---------------+--------------+
+                |
+                | 3) OOB callbacks arrive
+                v
++--------------------------------------------------------------------------------+
+|                                 INTROSPECTOR                                   |
+|--------------------------------------------------------------------------------|
+|  [Event Capture]             [Correlation]                  [Evidence]         |
+|  +------------------+        +------------------+           +----------------+ |
+|  | DNS query         | ----> | match by &lt;id&gt;     | ---->     | Timeline       | |
+|  | A/AAAA/TXT/etc.   |       | session grouping |           | timestamps     | |
+|  +------------------+        +------------------+           | source IP      | |
+|  +------------------+                                      | headers / path | |
+|  | HTTP request      | ----------------------------------> | redirect chain | |
+|  | method/path/UA    |                                      +----------------+ |
+|  +------------------+                                                        |
+|                                                                              |
+|  Output: "Proof that it executed" + "How it executed" (DNS-only vs HTTP vs redirects) |
++--------------------------------------------------------------------------------+
+
+Quick triage:
+- no events  = no execution (or blocked before DNS)
+- DNS only   = partial execution / egress restriction
+- HTTP       = strong proof (best for reports)
 </code></pre>
+
 
 ---
 
