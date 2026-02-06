@@ -36,7 +36,8 @@ Introspector makes this easier by capturing and correlating DNS/HTTP interaction
 - **Watch timing:** delayed callbacks often indicate queues/workers. This helps explain why nothing changes in the response.
 - **Check consistency and repetition:** send the same payload multiple times. Consistent callbacks (same origin/pattern) make your evidence much stronger.
 
-```text
+<div align="center">
+  <pre><code>
 ┌──────────────────────────────┐        HTTP / DNS         ┌───────────────────────────────┐
 │          Target App          │  ──────────────────────▶ │     Introspector Framework    │
 │  - Web App                   │                           │  - HTTP Listener              │
@@ -64,3 +65,5 @@ Introspector makes this easier by capturing and correlating DNS/HTTP interaction
 │  - Full Headers              │                          │  - Validation of Blind SSRF  │
 │  - Request Bodies            │                          │                              │
 └──────────────────────────────┘                          └──────────────────────────────┘
+  </code></pre>
+</div>
