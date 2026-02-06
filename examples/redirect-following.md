@@ -7,59 +7,89 @@ nav_order: 1
 
 ## Redirect Following
 
-En SSRF (especialmente **blind SSRF**), una de las preguntas más importantes no es solo *“¿hubo callback?”*, sino **cómo se comporta el cliente que está haciendo el fetch**.  
-Si ese cliente **sigue redirecciones**, se abren escenarios prácticos que pueden marcar la diferencia entre un SSRF “limitado” y un SSRF con **bypass** o **mayor alcance**.
+In SSRF (especially **blind SSRF**), one of the most important questions isn’t just *“Did I get a callback?”* — it’s **how the fetching client behaves**.  
+If that client **follows redirects**, it can be the difference between a “limited” SSRF and an SSRF with **bypass potential** or **greater reach**.
 
-Introspector detecta esto **de forma pasiva** usando un patrón muy común: muchos clientes (workers, headless browsers, bots de preview, parsers de documentos) solicitan automáticamente **`/favicon.ico`** cuando visitan un dominio.
-
----
-
-## ¿Por qué importa seguir redirects en SSRF?
-
-Cuando un backend sigue `301/302`:
-
-- **Bypass de allowlists**: hay implementaciones que validan únicamente la **URL inicial** (por ejemplo, “solo permite dominios confiables”), pero no controlan el destino final luego de un redirect.  
-  Si el cliente sigue redirects, puedes “entrar” por un dominio permitido y terminar en un destino distinto.
-
-- **Encadenamiento de redirects (redirect chains)**: puedes usar endpoints intermedios controlados por ti para:
-  - medir comportamiento del cliente,
-  - ajustar el destino dinámicamente,
-  - y dirigir el flujo a distintos targets en función de lo que observes (sin depender del response).
-
-- **Mejor fingerprint del fetcher**: seguir o no seguir redirects es una señal fuerte para identificar si estás frente a:
-  - un headless browser real,
-  - un link preview bot,
-  - un worker con librería HTTP estricta,
-  - o un componente que solo valida/resolvea.
-
-En resumen: **seguir redirects suele aumentar la “superficie” que el SSRF puede alcanzar**.
+Introspector detects this **passively** by leveraging a common real-world pattern: many clients (workers, headless browsers, link preview bots, document parsers) automatically request **`/favicon.ico`** when they touch a domain.
 
 ---
 
-## Cómo lo valida Introspector (pasivo)
+## Why redirect-following matters in SSRF
 
-Cuando un cliente toca `introspector.sh/favicon.ico`, Introspector responde con una **302** hacia un endpoint de verificación:
+When a backend follows `301/302`:
 
-- `GET /favicon.ico`  → **302** → `/favicon-followed`
+- **Allowlist bypass potential:** some implementations validate only the **initial URL** (e.g., “only allow trusted domains”), but fail to enforce controls after a redirect.  
+  If redirects are followed, you may “enter” via an allowed domain and end up at a different final destination.
 
-Si el cliente **sigue** la redirección, realizará una segunda request a `/favicon-followed`.  
-En ese momento Introspector marca el evento con **FOLLOW REDIRECT** (evidencia clara de que el fetcher sigue redirects).
+- **Redirect chaining:** attacker-controlled intermediate endpoints can be used to:
+  - measure client behavior,
+  - dynamically adjust the final destination,
+  - and steer requests based on what you observe (without relying on the target’s response).
 
-Luego, para evitar loops y mantener el flujo realista, `/favicon-followed` redirige una vez más:
+- **Better fetcher fingerprinting:** whether redirects are followed strongly indicates if you’re dealing with:
+  - a real headless browser,
+  - a link preview bot,
+  - a strict HTTP library / worker,
+  - or a component that only resolves/validates.
 
-- `GET /favicon-followed` → **302** → `/index.ico`
+In short: **redirect-following often increases what an SSRF can reach**.
 
 ---
 
-## Flujo completo (cadena de redirect)
+## How Introspector validates it (passively)
 
-```text
-Cliente SSRF (bot/worker/headless)
-        │
-        ├── GET /favicon.ico
-        │        └── 302 Location: /favicon-followed
-        │
-        ├── GET /favicon-followed        (solo si sigue redirects)
-        │        └── 302 Location: /index.ico
-        │
-        └── GET /index.ico               (fetch final)
+When a client hits `introspector.sh/favicon.ico`, Introspector replies with a **302** to a verification endpoint:
+
+- `GET /favicon.ico (302 → /favicon-followed)`
+
+If the client **follows** the redirect, it will request `/favicon-followed`.  
+At that moment Introspector marks the event with **FOLLOW REDIRECT** (clear evidence that the fetcher follows redirects).
+
+Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects once more:
+
+- `GET /favicon-followed (302 → /index.ico)`
+
+---
+
+## Diagram (passive and “browser-like”)
+
+<div align="center">
+  <pre><code>
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         Redirect Following (Passive Check)                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+          ┌───────────────────────────────┐
+          │   SSRF Client / Bot / Worker  │
+          │ (headless, preview, parser)   │
+          └───────────────┬───────────────┘
+                          │
+                          │  1) GET /favicon.ico
+                          ▼
+        ┌──────────────────────────────────────┐
+        │        Introspector (HTTP Listener)  │
+        │  responds with: 302 Location         │
+        │              → /favicon-followed     │
+        └───────────────────┬──────────────────┘
+                            │
+          ┌─────────────────┴─────────────────┐
+          │                                   │
+          │ follows redirect?                 │ does NOT follow
+          │                                   │
+          ▼                                   ▼
+┌──────────────────────────────┐     ┌──────────────────────────────┐
+│ 2) GET /favicon-followed     │     │ No second request observed   │
+│ Introspector flags:          │     │ → likely no redirect support │
+│   ✅ FOLLOW REDIRECT         │     │ → use other SSRF techniques  │
+└───────────────┬──────────────┘     └──────────────────────────────┘
+                │
+                │ responds with: 302 Location → /index.ico
+                ▼
+┌──────────────────────────────┐
+│ 3) GET /index.ico (final)    │
+│ Evidence remains in logs:    │
+│ timestamps, headers, IP, path│
+└──────────────────────────────┘
+
+  </code></pre>
+</div>
