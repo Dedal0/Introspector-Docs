@@ -1,4 +1,4 @@
-// Code Copy Functionality
+// Code Copy Functionality - Updated Colors
 (function() {
   'use strict';
 
@@ -29,8 +29,9 @@
         
         try {
           await navigator.clipboard.writeText(code);
-          copyButton.textContent = 'Copied!';
+          // NO cambies el texto, solo añade la clase
           copyButton.classList.add('copied');
+          copyButton.textContent = 'Copied!'; // El ✓ viene del CSS ::after
           
           setTimeout(() => {
             copyButton.textContent = 'Copy';
