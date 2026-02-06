@@ -53,10 +53,6 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
 
 ## Passive Redirect Check
 
-```text
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                      Redirect Following (Passive Check)                      │
-└──────────────────────────────────────────────────────────────────────────────┘
 
                           ┌───────────────────────────────┐
                           │   SSRF Client / Bot / Worker  │
