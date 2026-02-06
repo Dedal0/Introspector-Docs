@@ -1,4 +1,3 @@
-## Blind SSRF
 
 **Blind SSRF (Server-Side Request Forgery)** is a variant of SSRF where an application allows the **backend** to make a request to a URL controlled or influenced by the attacker, but **from the attacker’s perspective there is no direct feedback**.  
 In a “classic” SSRF you can sometimes confirm impact because the response changes (errors, timeouts, different status codes, different content). In **Blind SSRF**, the response often stays the same: the front-end does not reflect what actually happened behind the scenes.
