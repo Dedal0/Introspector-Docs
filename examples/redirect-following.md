@@ -3,9 +3,7 @@ layout: page
 title: Redirect Following
 parent: Examples
 nav_order: 1
----
 
-## Redirect Following
 
 In SSRF (especially **blind SSRF**), one of the most important questions isn’t just *“Did I get a callback?”* — it’s **how the fetching client behaves**.  
 If that client **follows redirects**, it can be the difference between a “limited” SSRF and an SSRF with **bypass potential** or **greater reach**.
