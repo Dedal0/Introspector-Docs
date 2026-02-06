@@ -63,18 +63,18 @@ Then, to avoid loops and keep the flow realistic, `/favicon-followed` redirects 
           │   SSRF Client / Bot / Worker  │
           │ (headless, preview, parser)   │
           └───────────────┬───────────────┘
-                          │
-                          │  1) GET /favicon.ico
-                          ▼
+                   │
+                           │  1) GET /favicon.ico
+                   ▼
         ┌──────────────────────────────────────┐
         │        Introspector (HTTP Listener)  │
         │  responds with: 302 Location         │
         │              → /favicon-followed     │
         └───────────────────┬──────────────────┘
-                            │
+                    │
           ┌─────────────────┴─────────────────┐
           │                                   │
-          │ follows redirect?                 │ does NOT follow
+                │ follows redirect?                 │ does NOT follow
           │                                   │
           ▼                                   ▼
 ┌──────────────────────────────┐     ┌──────────────────────────────┐
