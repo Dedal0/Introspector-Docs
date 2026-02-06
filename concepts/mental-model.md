@@ -21,32 +21,26 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 
 ## Diagram (similar style)
 
-```
-+------------------+           HTTP / DNS           +------------------------+
-|     Target App   |  --------------------------->  |  Introspector Framework|
-|------------------|                                |------------------------|
-| - Web App        |                                | - HTTP Listener        |
-| - API Endpoint   |                                | - DNS Server           |
-| - XML Parser     |                                | - Payload Host         |
-| - Image Proc     |                                | - Log Engine           |
-+------------------+                                +------------------------+
-                                                        |
-                                                        v
-                                             +------------------------+
-                                             |     Callbacks/Events   |
-                                             |------------------------|
-                                             | - Timestamps           |
-                                             | - Source IP / Geo      |
-                                             | - Request Headers      |
-                                             | - Body (if present)    |
-                                             +------------------------+
-                                                        |
-                                 Real-time              v
-+------------------+        <----------------     +------------------------+
-|    Web UI Logs   |                              |   Evidence / Timeline  |
-|------------------|                              |------------------------|
-| - DNS Queries    |                              | - Correlation by ID    |
-| - HTTP Requests  |                              | - Filters (DNS/HTTP)   |
-| - Full Headers   |                              | - Export for reports   |
-+------------------+                              +------------------------+
+~~~
++------------------+      HTTP/DNS      +------------------------+
+|    Target App    |  --------------->  |     Introspector       |
++------------------+                   +------------------------+
+                                      | HTTP Listener           |
+                                      | DNS Server              |
+                                      | Payload Host            |
+                                      | Log Engine              |
+                                      +------------------------+
+                                                |
+                                                v
+                                      +------------------------+
+                                      |     Callbacks/Events   |
+                                      |  time / ip / headers   |
+                                      +------------------------+
+                                                |
+                                                v
+                                      +------------------------+
+                                      |  Web UI (Logs/Filters) |
+                                      |  Evidence / Export     |
+                                      +------------------------+
+~~~
 
