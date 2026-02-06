@@ -19,6 +19,43 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 
 ---
 
+## How It Works
+
+```
+                                    ┌─────────────────────────────────────┐
+                                    │          INTROSPECTOR               │
+                                    │  ┌─────────────────────────────┐    │
+┌──────────┐      ┌─────────┐       │  │  • HTTP Listener (80, 443)  │    │
+│          │      │         │       │  │  • DNS  Listener (53)       │    │
+│ Attacker │─────▶│ Vuln    │───────│─▶│  • Payload Hosting          │    │
+│          │      │ API     │       │  │  • Passive Scanners         │    │
+└──────────┘      └─────────┘       │  │  • Response Designer        │    │
+     │                 │            │  └─────────────────────────────┘    │
+     │                 │            │                 │                   │
+     │                 ▼            │                 ▼                   │
+     │         ┌─────────────┐      │     ┌───────────────────┐           │
+     │         │ Backend     │      │     │    Real-time      │           │
+     │         │ • Headless  │──────│────▶│    Logging        │           │
+     │         │ • RPA       │      │     │    • GeoIP        │           │
+     │         │ • Scripts   │      │     │    • WHOIS        │           │
+     │         └─────────────┘      │     │    • Full Req/Res │           │
+     │                              │     └───────────────────┘           │
+     │                              └─────────────────────────────────────┘
+     │                                              │
+     ▼                                              ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  SSRF Scenario:                                                         │
+│                                                                         │
+│  Original:  ?url=http://192.168.1.10:3389/internal    ← BLOCKED         │
+│  Bypass:    ?url=http://legit-docs.com/file.xlsx      ← Introspector    │
+│                        │                                redirects to    │
+│                        └──────────────────────────────▶ 192.168.1.10    │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+
+---
+
 ## Diagram (similar style)
 
 ~~~
