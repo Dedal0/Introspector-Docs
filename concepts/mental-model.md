@@ -27,7 +27,7 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
                                     │  ┌─────────────────────────────┐    │
 ┌──────────┐      ┌─────────┐       │  │  • HTTP Listener (80, 443)  │    │
 │          │      │         │       │  │  • DNS  Listener (53)       │    │
-│ Attacker │─────▶│ Vuln    │───────│─▶│  • Payload Hosting          │    │
+│ Attacker │────▶│ Vuln    │───────│─▶│  • Payload Hosting          │    │
 │          │      │ API     │       │  │  • Passive Scanners         │    │
 └──────────┘      └─────────┘       │  │  • Response Designer        │    │
      │                 │            │  └─────────────────────────────┘    │
@@ -35,7 +35,7 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
      │                 ▼            │                 ▼                   │
      │         ┌─────────────┐      │     ┌───────────────────┐           │
      │         │ Backend     │      │     │    Real-time      │           │
-     │         │ • Headless  │──────│────▶│    Logging        │           │
+     │         │ • Headless  │──────│───▶│    Logging        │           │
      │         │ • RPA       │      │     │    • GeoIP        │           │
      │         │ • Scripts   │      │     │    • WHOIS        │           │
      │         └─────────────┘      │     │    • Full Req/Res │           │
@@ -49,7 +49,7 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 │  Original:  ?url=http://192.168.1.10:3389/internal    ← BLOCKED         │
 │  Bypass:    ?url=http://legit-docs.com/file.xlsx      ← Introspector    │
 │                        │                                redirects to    │
-│                        └──────────────────────────────▶ 192.168.1.10    │
+│                        └──────────────────────────────▶ 192.168.1.10   │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -59,25 +59,25 @@ Simple idea: **you inject a payload with a unique ID**, the backend resolves/fet
 ## Diagram (similar style)
 
 ~~~
-+------------------+      HTTP/DNS      +------------------------+
-|    Target App    |  --------------->  |     Introspector       |
-+------------------+                   +------------------------+
-                                      | HTTP Listener           |
-                                      | DNS Server              |
-                                      | Payload Host            |
-                                      | Log Engine              |
-                                      +------------------------+
-                                                |
-                                                v
-                                      +------------------------+
-                                      |     Callbacks/Events   |
-                                      |  time / ip / headers   |
-                                      +------------------------+
-                                                |
-                                                v
-                                      +------------------------+
-                                      |  Web UI (Logs/Filters) |
-                                      |  Evidence / Export     |
-                                      +------------------------+
++------------------+      HTTP/DNS     +-------------------------+
+|    Target App    |  ---------------> |       Introspector      |
++------------------+                   +-------------------------+
+                                       | HTTP Listener           |
+                                       | DNS Server              |
+                                       | Payload Host            |
+                                       | Log Engine              |
+                                       +-------------------------+
+                                                   |
+                                                   v
+                                       +------------------------+
+                                       |     Callbacks/Events   |
+                                       |  time / ip / headers   |
+                                       +------------------------+
+                                                   |
+                                                   v
+                                       +------------------------+
+                                       |  Web UI (Logs/Filters) |
+                                       |  Evidence / Export     |
+                                       +------------------------+
 ~~~
 
