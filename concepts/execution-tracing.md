@@ -40,10 +40,10 @@ Execution Tracing (turn blind behavior into a timeline)
       |
       | 1) inject payload with unique ID
       v
-+---------------------------+
++---------------------------------+
 |  Payload: https://x/&lt;id&gt;  |
-|  or: &lt;id&gt;.oob.domain.tld   |
-+-------------+-------------+
+|  or: &lt;id&gt;.oob.domain.tld  |
++-------------+-------------------+
               |
               v
 +------------------------------+
@@ -68,21 +68,21 @@ Execution Tracing (turn blind behavior into a timeline)
                 |
                 | 3) OOB callbacks arrive
                 v
-+--------------------------------------------------------------------------------+
-|                                 INTROSPECTOR                                   |
-|--------------------------------------------------------------------------------|
-|  [Event Capture]             [Correlation]                  [Evidence]         |
-|  +------------------+        +------------------+           +----------------+ |
-|  | DNS query         | ----> | match by &lt;id&gt;     | ---->     | Timeline       | |
-|  | A/AAAA/TXT/etc.   |       | session grouping |           | timestamps     | |
-|  +------------------+        +------------------+           | source IP      | |
-|  +------------------+                                      | headers / path | |
-|  | HTTP request      | ----------------------------------> | redirect chain | |
-|  | method/path/UA    |                                      +----------------+ |
-|  +------------------+                                                        |
-|                                                                              |
++---------------------------------------------------------------------------------------+
+|                                 INTROSPECTOR                                          |
+|---------------------------------------------------------------------------------------|
+|  [Event Capture]             [Correlation]                  [Evidence]                |
+|  +-------------------+       +---------------------+       +----------------+         |
+|  | DNS query         | ----> | match by &lt;id&gt; | ----> | Timeline       |         |
+|  | A/AAAA/TXT/etc.   |       | session grouping    |       | timestamps     |         |
+|  +-------------------+       +---------------------+       | source IP      |         |
+|  +-------------------+                                     | headers / path |         |
+|  | HTTP request      | ----------------------------------> | redirect chain |         |
+|  | method/path/UA    |                                     +----------------+         |
+|  +-------------------+                                                                |
+|                                                                                       |
 |  Output: "Proof that it executed" + "How it executed" (DNS-only vs HTTP vs redirects) |
-+--------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------+
 
 Quick triage:
 - no events  = no execution (or blocked before DNS)
