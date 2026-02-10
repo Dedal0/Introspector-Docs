@@ -57,7 +57,8 @@ Delays that consistently stop near a value (2s/5s/10s/30s) often suggest configu
 
 ## OOB Timeout Analysis Workflow
 
-
+<div align="center">
+  <pre><code>
 ┌──────────────────────────┐        Trigger / Input       ┌──────────────────────────┐
 │         Tester           │  ───────────────────────▶   │     Target Feature        │
 │ (payload / data / URL)   │                              │ (parser / fetcher / job) │
@@ -76,3 +77,6 @@ Delays that consistently stop near a value (2s/5s/10s/30s) often suggest configu
 │   Introspector Listener  │  ◀───────────────────────── │   Evidence / Timeline     │
 │    DNS + HTTP callbacks  │                              │ delays, retries, order    │
 └──────────────────────────┘                              └───────────────────────────┘
+
+  </code></pre>
+</div>
