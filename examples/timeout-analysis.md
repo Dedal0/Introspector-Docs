@@ -58,7 +58,6 @@ Delays that consistently stop near a value (2s/5s/10s/30s) often suggest configu
 ## OOB Timeout Analysis Workflow
 
 
-```text
 ┌──────────────────────────┐        Trigger / Input       ┌──────────────────────────┐
 │         Tester           │  ───────────────────────▶   │     Target Feature        │
 │ (payload / data / URL)   │                              │ (parser / fetcher / job) │
