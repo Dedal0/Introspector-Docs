@@ -960,8 +960,8 @@ tbody tr:hover {
 }
 
 .hero-logo{
-  width:150px;
+  width:50px;
   height:auto;
-  max-width:150px;
+  max-width:50px;
   display:block;
 }
