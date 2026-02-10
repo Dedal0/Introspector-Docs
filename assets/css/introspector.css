@@ -959,18 +959,9 @@ tbody tr:hover {
   color: var(--text-primary);
 }
 
-.site-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.site-title .site-logo{
-  width:26px !important;
-  height:26px !important;
-  max-width:26px !important;
-  max-height:26px !important;
-  object-fit:contain !important;
-  display:block !important;
-  flex:0 0 auto !important;
+.hero-logo{
+  width:260px;
+  height:auto;
+  max-width:40vw;
+  display:block;
 }
