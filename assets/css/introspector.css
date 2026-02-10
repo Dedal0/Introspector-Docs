@@ -965,10 +965,12 @@ tbody tr:hover {
   gap:10px;
 }
 
-.site-logo{
-  width:18px;
-  height:18px;
-  object-fit:contain;
-  filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));
-  flex:0 0 auto;
+.site-title .site-logo{
+  width:26px !important;
+  height:26px !important;
+  max-width:26px !important;
+  max-height:26px !important;
+  object-fit:contain !important;
+  display:block !important;
+  flex:0 0 auto !important;
 }
