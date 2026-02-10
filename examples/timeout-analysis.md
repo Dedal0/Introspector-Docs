@@ -5,8 +5,6 @@ parent: Examples
 nav_order: 3
 ---
 
-## Timeout Analysis
-
 In **blind** vulnerabilities (no visible feedback in the application response), **time becomes a signal**.  
 **Timeout Analysis** is the practice of observing **delays**, **retries**, and **callback ordering** to infer what the backend is doing behind the scenes — even when the target response stays constant.
 
