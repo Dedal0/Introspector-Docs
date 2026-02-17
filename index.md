@@ -1,27 +1,46 @@
 ---
 layout: page
 show_title: false
-hero:
-  buttons:
-    - url: /getting-started/quickstart/
-      text: Quickstart
-      icon: 🚀
-      description: Run a session, open the log UI, and generate payloads in minutes
-    - url: /reference/commands/
-      text: Commands
-      icon: 📚
-      description: Complete command reference for framework control
-    - url: /screenshots/ui/
-      text: Screenshots
-      icon: 🖼️
-      description: See the UI and workflow in action
 ---
-<div style="margin-top: 28px; margin-bottom: 26px;">
+
+<div style="margin-top: 12px; margin-bottom: 18px;">
   <video controls playsinline preload="metadata" style="width:100%; border-radius:14px; display:block;">
     <source src="{{ '/assets/videos/intro.mp4' | relative_url }}" type="video/mp4">
     Tu navegador no soporta video HTML5.
   </video>
 </div>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:18px; margin-top: 10px; margin-bottom: 26px;">
+
+  <a href="{{ '/getting-started/quickstart/' | relative_url }}"
+     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
+    <div style="font-size:22px; line-height:1;">🚀</div>
+    <div>
+      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Quickstart</div>
+      <div style="opacity:0.85; font-size:14px;">Run a session, open the log UI, and generate payloads in minutes</div>
+    </div>
+  </a>
+
+  <a href="{{ '/reference/commands/' | relative_url }}"
+     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
+    <div style="font-size:22px; line-height:1;">🧩</div>
+    <div>
+      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Commands</div>
+      <div style="opacity:0.85; font-size:14px;">Complete command reference for framework control</div>
+    </div>
+  </a>
+
+  <a href="{{ '/screenshots/ui/' | relative_url }}"
+     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
+    <div style="font-size:22px; line-height:1;">🖼️</div>
+    <div>
+      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Screenshots</div>
+      <div style="opacity:0.85; font-size:14px;">See the UI and workflow in action</div>
+    </div>
+  </a>
+
+</div>
+
 
 ## What It Is
 
