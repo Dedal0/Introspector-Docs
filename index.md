@@ -16,6 +16,12 @@ hero:
       icon: 🖼️
       description: See the UI and workflow in action
 ---
+<div style="margin-top: 28px; margin-bottom: 26px;">
+  <video controls playsinline preload="metadata" style="width:100%; border-radius:14px; display:block;">
+    <source src="{{ '/assets/videos/intro.mp4' | relative_url }}" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+</div>
 
 ## What It Is
 
