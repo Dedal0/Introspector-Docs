@@ -10,37 +10,39 @@ show_title: false
   </video>
 </div>
 
-<div class="hero" style="margin-top: 12px; margin-bottom: 26px;">
-  <div class="hero-buttons">
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:22px; margin:16px 0 28px 0;">
+  <style>
+    .homecard { text-decoration:none !important; color:inherit !important; }
+    .homecard * { color:inherit !important; }
+  </style>
 
-    <a class="hero-button" href="{{ '/getting-started/quickstart/' | relative_url }}">
-      <div class="hero-button-icon">🚀</div>
-      <div class="hero-button-text">
-        <div class="hero-button-title">Quickstart</div>
-        <div class="hero-button-description">Run a session, open the log UI, and generate payloads in minutes</div>
-      </div>
-    </a>
+  <a class="homecard" href="{{ '/getting-started/quickstart/' | relative_url }}"
+     style="display:flex; gap:18px; padding:22px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.02);">
+    <div style="width:56px;height:56px;border:1px solid rgba(255,255,255,.14);border-radius:12px;display:flex;align-items:center;justify-content:center;">🚀</div>
+    <div>
+      <div style="font-weight:700; font-size:20px; color:#e6edf3;">Quickstart</div>
+      <div style="margin-top:6px; font-size:14px; color:#8b949e;">Run a session, open the log UI, and generate payloads in minutes</div>
+    </div>
+  </a>
 
-    <a class="hero-button" href="{{ '/reference/commands/' | relative_url }}">
-      <div class="hero-button-icon">📚</div>
-      <div class="hero-button-text">
-        <div class="hero-button-title">Commands</div>
-        <div class="hero-button-description">Complete command reference for framework control</div>
-      </div>
-    </a>
+  <a class="homecard" href="{{ '/reference/commands/' | relative_url }}"
+     style="display:flex; gap:18px; padding:22px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.02);">
+    <div style="width:56px;height:56px;border:1px solid rgba(255,255,255,.14);border-radius:12px;display:flex;align-items:center;justify-content:center;">📚</div>
+    <div>
+      <div style="font-weight:700; font-size:20px; color:#e6edf3;">Commands</div>
+      <div style="margin-top:6px; font-size:14px; color:#8b949e;">Complete command reference for framework control</div>
+    </div>
+  </a>
 
-    <a class="hero-button" href="{{ '/screenshots/ui/' | relative_url }}">
-      <div class="hero-button-icon">🖼️</div>
-      <div class="hero-button-text">
-        <div class="hero-button-title">Screenshots</div>
-        <div class="hero-button-description">See the UI and workflow in action</div>
-      </div>
-    </a>
-
-  </div>
+  <a class="homecard" href="{{ '/screenshots/ui/' | relative_url }}"
+     style="display:flex; gap:18px; padding:22px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.02);">
+    <div style="width:56px;height:56px;border:1px solid rgba(255,255,255,.14);border-radius:12px;display:flex;align-items:center;justify-content:center;">🖼️</div>
+    <div>
+      <div style="font-weight:700; font-size:20px; color:#e6edf3;">Screenshots</div>
+      <div style="margin-top:6px; font-size:14px; color:#8b949e;">See the UI and workflow in action</div>
+    </div>
+  </a>
 </div>
-
-## What It Is
 
 
 
