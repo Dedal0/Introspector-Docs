@@ -3,39 +3,104 @@ layout: page
 show_title: false
 ---
 
-<div style="margin-top: 12px; margin-bottom: 18px;">
-  <video controls playsinline preload="metadata" style="width:100%; border-radius:14px; display:block;">
-    <source src="{{ '/assets/videos/intro.mp4' | relative_url }}" type="video/mp4">
-    Tu navegador no soporta video HTML5.
-  </video>
-</div>
+<div style="
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap:22px;
+  margin-top: 10px;
+  margin-bottom: 28px;
+">
 
-<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:18px; margin-top: 10px; margin-bottom: 26px;">
+  <a href="{{ '/getting-started/quickstart/' | relative_url }}" style="
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    padding:22px;
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:16px;
+    text-decoration:none;
+    color: inherit;
+    background: rgba(255,255,255,0.02);
+  ">
+    <div style="
+      width:56px; height:56px;
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+      background: rgba(0,0,0,0.25);
+      font-size:24px;
+    ">🚀</div>
 
-  <a href="{{ '/getting-started/quickstart/' | relative_url }}"
-     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
-    <div style="font-size:22px; line-height:1;">🚀</div>
     <div>
-      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Quickstart</div>
-      <div style="opacity:0.85; font-size:14px;">Run a session, open the log UI, and generate payloads in minutes</div>
+      <div style="font-weight:650; font-size:20px; margin-bottom:6px; color:#e6edf3;">
+        Quickstart
+      </div>
+      <div style="opacity:0.82; font-size:14px; line-height:1.45; color:#8b949e;">
+        Run a session, open the log UI, and generate payloads in minutes
+      </div>
     </div>
   </a>
 
-  <a href="{{ '/reference/commands/' | relative_url }}"
-     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
-    <div style="font-size:22px; line-height:1;">🧩</div>
+  <a href="{{ '/reference/commands/' | relative_url }}" style="
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    padding:22px;
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:16px;
+    text-decoration:none;
+    color: inherit;
+    background: rgba(255,255,255,0.02);
+  ">
+    <div style="
+      width:56px; height:56px;
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+      background: rgba(0,0,0,0.25);
+      font-size:24px;
+    ">📚</div>
+
     <div>
-      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Commands</div>
-      <div style="opacity:0.85; font-size:14px;">Complete command reference for framework control</div>
+      <div style="font-weight:650; font-size:20px; margin-bottom:6px; color:#e6edf3;">
+        Commands
+      </div>
+      <div style="opacity:0.82; font-size:14px; line-height:1.45; color:#8b949e;">
+        Complete command reference for framework control
+      </div>
     </div>
   </a>
 
-  <a href="{{ '/screenshots/ui/' | relative_url }}"
-     style="display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid rgba(255,255,255,0.12); border-radius:14px; text-decoration:none;">
-    <div style="font-size:22px; line-height:1;">🖼️</div>
+  <a href="{{ '/screenshots/ui/' | relative_url }}" style="
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    padding:22px;
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:16px;
+    text-decoration:none;
+    color: inherit;
+    background: rgba(255,255,255,0.02);
+  ">
+    <div style="
+      width:56px; height:56px;
+      border:1px solid rgba(255,255,255,0.14);
+      border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+      background: rgba(0,0,0,0.25);
+      font-size:24px;
+    ">🖼️</div>
+
     <div>
-      <div style="font-weight:650; font-size:18px; margin-bottom:6px;">Screenshots</div>
-      <div style="opacity:0.85; font-size:14px;">See the UI and workflow in action</div>
+      <div style="font-weight:650; font-size:20px; margin-bottom:6px; color:#e6edf3;">
+        Screenshots
+      </div>
+      <div style="opacity:0.82; font-size:14px; line-height:1.45; color:#8b949e;">
+        See the UI and workflow in action
+      </div>
     </div>
   </a>
 
