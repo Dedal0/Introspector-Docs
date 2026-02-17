@@ -3,12 +3,17 @@ layout: page
 show_title: false
 ---
 
-<div style="margin-top: 12px; margin-bottom: 18px;">
-  <video controls playsinline preload="metadata" style="width:100%; border-radius:14px; display:block;">
-    <source src="{{ '/assets/videos/intro.mp4' | relative_url }}" type="video/mp4">
-    Tu navegador no soporta video HTML5.
-  </video>
-</div>
+<video
+  autoplay
+  loop
+  muted
+  playsinline
+  preload="auto"
+  style="width:100%; border-radius:14px; display:block;"
+>
+  <source src="{{ '/assets/videos/intro.mp4' | relative_url }}" type="video/mp4">
+  Tu navegador no soporta video HTML5.
+</video>
 
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:22px; margin:16px 0 28px 0;">
   <style>
