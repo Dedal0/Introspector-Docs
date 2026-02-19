@@ -1,4 +1,7 @@
-
+---
+layout: page
+title: OOB architecture
+---
 
 Introspector works by receiving **out-of-band (OOB)** interactions from systems that you cannot observe directly.
 
