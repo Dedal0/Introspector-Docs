@@ -3,8 +3,6 @@ layout: page
 title: Redirects
 ---
 
-# Redirects
-
 The **Redirects** module allows you to work with controlled HTTP redirections inside Introspector.
 
 It is mainly used to:
