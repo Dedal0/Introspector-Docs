@@ -3,8 +3,6 @@ layout: page
 title: Hosted Files
 ---
 
-# Hosted Files
-
 The **Hosted Files** module allows you to upload local files and expose them through public HTTP endpoints inside Introspector.
 
 This module is useful for:
