@@ -1,3 +1,8 @@
+---
+layout: page
+title: Mental model
+---
+
 Introspector provides **OOB (out-of-band) evidence** when the application response is not helpful (SSRF / Blind XSS / internal fetchers).
 Simple idea: **you inject a payload with a unique ID**, the backend resolves/fetches it, and Introspector captures **real events** (DNS/HTTP, headers, timestamps) in your dashboard.
 
