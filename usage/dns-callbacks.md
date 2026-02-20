@@ -5,71 +5,71 @@ title: DNS Callbacks
 
 # DNS Callbacks
 
-El módulo **DNS Callbacks** permite confirmar interacciones OOB (out-of-band) cuando un objetivo realiza **resoluciones DNS** hacia tu infraestructura.
+The **DNS Callbacks** module helps you confirm OOB (out-of-band) interactions when a target performs **DNS lookups** to your infrastructure.
 
-Esto es clave para escenarios como:
+This is useful for scenarios such as:
 
-- Blind SSRF (solo DNS)
+- Blind SSRF (DNS-only)
 - XXE
 - Command Injection
-- Backends que hacen “fetch” silencioso
-- Clientes que no devuelven nada por HTTP
+- Backends that do “silent” fetches
+- Clients that don’t return anything over HTTP
 
 ---
 
-## 🧠 Cómo funciona (resumen)
+## 🧠 How it works (quick overview)
 
-Introspector levanta un **listener DNS** en **UDP/53**.  
-Cuando el objetivo resuelve un subdominio bajo tu dominio (ej: `abc123.tudominio.com`), Introspector:
+Introspector starts a **DNS listener** on **UDP/53**.  
+When the target resolves a subdomain under your domain (e.g., `abc123.yourdomain.com`), Introspector:
 
-- recibe la query
-- extrae el subdominio/token
-- registra el evento en el Admin UI
+- receives the DNS query
+- extracts the subdomain/token
+- logs the event in the Admin UI
 
 ---
 
-## ⚙️ Configuración con tu propio dominio (VPS + DNS)
+## ⚙️ Using your own domain (VPS + DNS)
 
-### Requisitos
+### Requirements
 
-- Un VPS con IP pública (ej: `X.X.X.X`)
-- Un dominio tuyo (ej: `example.com`)
-- Acceso al panel DNS de tu registrador/Cloudflare/etc.
-- Puertos abiertos:
+- A VPS with a public IP (e.g., `X.X.X.X`)
+- Your own domain (e.g., `example.com`)
+- Access to your domain DNS panel (registrar/Cloudflare/etc.)
+- Open ports:
   - **UDP 53** (DNS)
-  - **TCP 80/443** (HTTP callbacks / Admin UI si aplica)
+  - **TCP 80/443** (HTTP callbacks / Admin UI if applicable)
 
 ---
 
-## ⚠️ Importante (config dentro del proyecto)
+## ⚠️ Important (project config)
 
-✅ **La configuración de DNS en Introspector se cambia en el archivo: `core_state.py`.**  
-Dentro de ese archivo encontrarás el bloque `DNS_CONFIG`. Ajústalo con tu **IP pública** y tu **dominio base**:
+✅ **Introspector DNS configuration is changed in: `core_state.py`.**  
+Inside that file you’ll find the `DNS_CONFIG` block. Update it with your **public IP** and your **base domain**:
 
 ```python
 DNS_CONFIG = {
     "listen_ip": "0.0.0.0",
-    "listen_port": 53,                    # usa 53 en VPS real (o 5353 en local)
-    "mode": "A",                          # "A" o "NXDOMAIN"
-    "reply_ip": "138.197.112.130",        # IP del VPS
-    "domain_base": "introspector.d3.lu",  # ej: "xx.domain.com"
+    "listen_port": 53,                    # use 53 on a real VPS (or 5353 locally)
+    "mode": "A",                          # "A" or "NXDOMAIN"
+    "reply_ip": "138.197.112.130",        # VPS public IP
+    "domain_base": "introspector.d3.lu",  # e.g., "xx.domain.com"
     "log_file": "dns_queries.log",
     "seen_file": "tokens_seen.json"
 }
 ```
-## Configura el DNS en tu proveedor (GoDaddy, etc.) — SIN ESTO no llegan callbacks
+## Configure DNS in your provider (GoDaddy, etc.) — WITHOUT THIS, callbacks won’t arrive
 
-Aunque ya hayas configurado `core_state.py`, **los callbacks DNS NO llegan “por arte de magia”**:  
-tu dominio tiene que apuntar a la **IP pública del VPS** en el panel DNS (GoDaddy en tu caso).
+Even if you already configured `core_state.py`, **DNS callbacks will NOT arrive “by magic”**:  
+your domain must point to the VPS public IP in your DNS provider panel (GoDaddy, etc).
 
 **Wildcard A record (tokens)**
 - **Type:** `A`
 - **Name:** `*.introspector`
 - **Value:** `X.X.X.X`
 
-> Esto es exactamente el estilo de tu captura: `*.introspector -> IP`
+> This is exactly the style shown in your screenshot: `*.introspector -> IP`
 
-✅ Si usas esta opción, en `core_state.py` pon:
+✅ If you use this option, set in `core_state.py`:
 
 ```text
 domain_base = "introspector.tudominio.com"
