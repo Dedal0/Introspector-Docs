@@ -56,7 +56,7 @@ DNS_CONFIG = {
     "log_file": "dns_queries.log",
     "seen_file": "tokens_seen.json"
 }
-
+```
 ## Configura el DNS en tu proveedor (GoDaddy, etc.) — SIN ESTO no llegan callbacks
 
 Aunque ya hayas configurado `core_state.py`, **los callbacks DNS NO llegan “por arte de magia”**:  
@@ -73,3 +73,4 @@ tu dominio tiene que apuntar a la **IP pública del VPS** en el panel DNS (GoDad
 
 ```text
 domain_base = "introspector.tudominio.com"
+```
