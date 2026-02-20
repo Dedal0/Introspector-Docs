@@ -3,7 +3,6 @@ layout: page
 title: DNS Callbacks
 ---
 
-# DNS Callbacks
 
 The **DNS Callbacks** module helps you confirm OOB (out-of-band) interactions when a target performs **DNS lookups** to your infrastructure.
 
