@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Installation
+---
 
 ```
 git clone https://github.com/DeepSecurityResearch/Introspector.git
