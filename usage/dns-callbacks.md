@@ -50,7 +50,7 @@ DNS_CONFIG = {
     "listen_ip": "0.0.0.0",
     "listen_port": 53,                    # use 53 on a real VPS (or 5353 locally)
     "mode": "A",                          # "A" or "NXDOMAIN"
-    "reply_ip": "138.197.112.130",        # VPS public IP
+    "reply_ip": "X.X.X.X",        # VPS public IP
     "domain_base": "introspector.d3.lu",  # e.g., "xx.domain.com"
     "log_file": "dns_queries.log",
     "seen_file": "tokens_seen.json"
