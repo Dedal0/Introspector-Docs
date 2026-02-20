@@ -41,7 +41,7 @@ Cuando el objetivo resuelve un subdominio bajo tu dominio (ej: `abc123.tudominio
 
 ---
 
-## 0) ⚠️ Importante (config dentro del proyecto)
+## ⚠️ Importante (config dentro del proyecto)
 
 ✅ **La configuración de DNS en Introspector se cambia en el archivo: `core_state.py`.**  
 Dentro de ese archivo encontrarás el bloque `DNS_CONFIG`. Ajústalo con tu **IP pública** y tu **dominio base**:
@@ -57,9 +57,7 @@ DNS_CONFIG = {
     "seen_file": "tokens_seen.json"
 }
 
----
-
-## 1) Configura el DNS en tu proveedor (GoDaddy, etc.) — SIN ESTO no llegan callbacks
+## Configura el DNS en tu proveedor (GoDaddy, etc.) — SIN ESTO no llegan callbacks
 
 Aunque ya hayas configurado `core_state.py`, **los callbacks DNS NO llegan “por arte de magia”**:  
 tu dominio tiene que apuntar a la **IP pública del VPS** en el panel DNS (GoDaddy en tu caso).
@@ -72,4 +70,6 @@ tu dominio tiene que apuntar a la **IP pública del VPS** en el panel DNS (GoDad
 > Esto es exactamente el estilo de tu captura: `*.introspector -> IP`
 
 ✅ Si usas esta opción, en `core_state.py` pon:
-- `domain_base = "introspector.tudominio.com"`
+
+```text
+domain_base = "introspector.tudominio.com"
