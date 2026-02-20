@@ -30,5 +30,5 @@ title: UI Demo
 ### Hosted Files
 *This image shows how Introspector can host a file using file upload <path>/<file.etc>. After the upload, Introspector generates an ID and prints the URL to access it (for example: /hostedfiles/<id>.xlsx), including the uploaded file’s name/extension.*
 
-<img style="width:100%; border-radius:14px; display:block;" src="{{ '/assets/img/HOST-FILE.png' | relative_url }}" alt="Introspector Hosted files">
+<img style="width:100%; border-radius:14px; display:block;" src="{{ '/assets/img/host-file.png' | relative_url }}" alt="Introspector Hosted files">
 
