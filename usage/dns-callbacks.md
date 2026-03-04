@@ -13,7 +13,6 @@ This is useful for scenarios such as:
 - Backends that do “silent” fetches
 - Clients that don’t return anything over HTTP
 
----
 
 ## 🧠 How it works (quick overview)
 
@@ -24,7 +23,6 @@ When the target resolves a subdomain under your base domain (e.g., `abc123.oob.i
 - extracts the subdomain/token
 - logs the event in the Admin UI
 
----
 
 ## ⚙️ Using your own domain (VPS + DNS)
 
@@ -34,7 +32,6 @@ When the target resolves a subdomain under your base domain (e.g., `abc123.oob.i
 - Your own domain (example: `introspector.sh`)
 - Access to your domain DNS panel (registrar/Cloudflare/etc.)
 
----
 
 ## ⚠️ Important (project config)
 
@@ -66,7 +63,6 @@ To receive DNS queries on your VPS, you must make your VPS the authoritative DNS
 - **OOB base:** `oob.introspector.sh`
 - **Custom nameserver** `ns1.oob7k3p.introspector.sh`
 
----
 
 ## Step 1 — Create the custom nameserver (GLUE / Hostname)
 
@@ -77,7 +73,6 @@ In your DNS provider, find a section like **Hostnames / Child Name Servers / Cus
 
 Why this matters: it “binds” the nameserver hostname to your VPS IP, so delegation can work reliably.
 
----
 
 ## Step 2 — Add DNS records (DNS Records)
 
@@ -108,7 +103,6 @@ Result:
 - `abc123.oob.introspector.sh`
 - `ssrf-test.oob.introspector.sh`
 
----
 
 ## 🖥️ VPS notes (UDP/53 + normal DNS)
 
