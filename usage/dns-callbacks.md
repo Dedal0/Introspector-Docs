@@ -117,25 +117,20 @@ Stop systemd-resolved (why?)
 systemd-resolved can occupy DNS locally and block port 53.
 Stopping it frees UDP/53 so Introspector can bind to it:
 
-```bash
+```
 sudo systemctl stop systemd-resolved
-Update /etc/resolv.conf (why?)
+```
+
+## Update /etc/resolv.conf (why?)
 
 After stopping systemd-resolved, your VPS may lose normal DNS resolution.
 Set a public resolver so the VPS can still resolve domains:
 
 File: /etc/resolv.conf
 
+```
 nameserver 8.8.8.8
 options edns0 trust-ad
 search .
-✅ Ready-to-use examples
-
-These should generate DNS queries and appear in Introspector:
-
-abc123.oob.introspector.sh
-
-ssrf-test.oob.introspector.sh
-
-pingme-01.oob.introspector.sh
 ```
+
