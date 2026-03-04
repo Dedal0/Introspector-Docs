@@ -33,9 +33,6 @@ When the target resolves a subdomain under your base domain (e.g., `abc123.oob.i
 - A VPS with a public IP (example: `192.168.10.43`)
 - Your own domain (example: `introspector.sh`)
 - Access to your domain DNS panel (registrar/Cloudflare/etc.)
-- Open ports:
-  - **UDP 53** (DNS)
-  - **TCP 80/443** (HTTP callbacks / Admin UI if applicable)
 
 ---
 
@@ -60,62 +57,67 @@ DNS_CONFIG = {
 Even if you already configured core_state.py, DNS callbacks will NOT arrive “by magic”.
 To receive DNS queries on your VPS, you must make your VPS the authoritative DNS for a subdomain (example: oob.introspector.sh).
 
-**This guide uses these fixed examples**
+---
+
+### **This guide uses these fixed examples**
+
 - **VPS IP:** `192.168.10.43`
 - **Domain:** `introspector.sh`
 - **OOB base:** `oob.introspector.sh`
 - **Custom nameserver** `ns1.oob7k3p.introspector.sh`
 
-Step 1 — Create the custom nameserver (GLUE / Hostname)
+---
 
-In your DNS provider, find a section like Hostnames / Child Name Servers / Custom nameservers and create:
+## Step 1 — Create the custom nameserver (GLUE / Hostname)
 
-Hostname: ns1.oob7k3p.introspector.sh
+In your DNS provider, find a section like **Hostnames / Child Name Servers / Custom nameservers** and create:
 
-IP Address: 192.168.10.43
+- **Hostname:** `ns1.oob7k3p.introspector.sh`
+- **IP Address:** `192.168.10.43`
 
 Why this matters: it “binds” the nameserver hostname to your VPS IP, so delegation can work reliably.
 
-Step 2 — Add DNS records (DNS Records)
+---
 
-Now open the DNS zone for introspector.sh and create these two records:
+## Step 2 — Add DNS records (DNS Records)
 
-1) NS delegation (delegate oob to your nameserver)
+Now open the DNS zone for **introspector.sh** and create these two records:
 
-Type: NS
+### 1) NS delegation (delegate oob to your nameserver)
 
-Name/Host: oob
-
-Value/Target: ns1.oob7k3p.introspector.sh.
-
-Result:
-
-NS oob ns1.oob7k3p.introspector.sh.
-
-2) A record for the nameserver
-
-Type: A
-
-Name/Host: ns1.oob7k3p
-
-Value: 192.168.10.43
+- **Type:** `NS`
+- **Name/Host:** `oob`
+- **Value/Target:** `ns1.oob7k3p.introspector.sh.`
 
 Result:
 
-A ns1.oob7k3p 192.168.10.43
+- `NS oob ns1.oob7k3p.introspector.sh.`
+
+### 2) A record for the nameserver
+
+- **Type:** `A`
+- **Name/Host:** `ns1.oob7k3p`
+- **Value:** `192.168.10.43`
+
+Result:
+
+- `A ns1.oob7k3p 192.168.10.43`
 
 ✅ After this, any token under oob.introspector.sh will reach your VPS:
 
-abc123.oob.introspector.sh
+- `abc123.oob.introspector.sh`
+- `ssrf-test.oob.introspector.sh`
 
-ssrf-test.oob.introspector.sh
+---
 
-🖥️ VPS notes (UDP/53 + normal DNS)
+## 🖥️ VPS notes (UDP/53 + normal DNS)
+
 Stop systemd-resolved (why?)
 
 systemd-resolved can occupy DNS locally and block port 53.
 Stopping it frees UDP/53 so Introspector can bind to it:
 
+```bash
 sudo systemctl stop systemd-resolved
 Update /etc/resolv.conf (why?)
 
@@ -136,3 +138,4 @@ abc123.oob.introspector.sh
 ssrf-test.oob.introspector.sh
 
 pingme-01.oob.introspector.sh
+```
